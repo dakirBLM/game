@@ -12,13 +12,10 @@ jobs:
         include:
           - os: windows-latest
             artifact: MagicForest-windows
-            sep: ";"
           - os: macos-latest
             artifact: MagicForest-mac
-            sep: ":"
           - os: ubuntu-latest
             artifact: MagicForest-linux
-            sep: ":"
 
     runs-on: ${{ matrix.os }}
 
@@ -36,13 +33,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install pygame pillow pytmx pyinstaller
 
-      - name: Build with PyInstaller
+      - name: Build with PyInstaller (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          pyinstaller --noconfirm --onedir --windowed --name "MagicForest" --add-data "Assets;Assets" --add-data "MagicForest/04_LevelLoading;MagicForest/04_LevelLoading" --add-data "MagicForest/Levels;MagicForest/Levels" MagicForest/04_LevelLoading/_04_LevelLoading.py
+
+      - name: Build with PyInstaller (macOS/Linux)
+        if: matrix.os != 'windows-latest'
         run: |
           pyinstaller --noconfirm --onedir --windowed \
             --name "MagicForest" \
-            --add-data "Assets${{ matrix.sep }}Assets" \
-            --add-data "MagicForest/04_LevelLoading${{ matrix.sep }}MagicForest/04_LevelLoading" \
-            --add-data "MagicForest/Levels${{ matrix.sep }}MagicForest/Levels" \
+            --add-data "Assets:Assets" \
+            --add-data "MagicForest/04_LevelLoading:MagicForest/04_LevelLoading" \
+            --add-data "MagicForest/Levels:MagicForest/Levels" \
             MagicForest/04_LevelLoading/_04_LevelLoading.py
 
       - name: Upload artifact
