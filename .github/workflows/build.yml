@@ -36,13 +36,14 @@ jobs:
       - name: Build with PyInstaller (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          pyinstaller --noconfirm --onedir --windowed --name "MagicForest" --add-data "Assets;Assets" --add-data "MagicForest/04_LevelLoading;MagicForest/04_LevelLoading" --add-data "MagicForest/Levels;MagicForest/Levels" MagicForest/04_LevelLoading/_04_LevelLoading.py
+          pyinstaller --noconfirm --onedir --windowed --name "MagicForest" --hidden-import pytmx --hidden-import PIL --hidden-import PIL.Image --add-data "Assets;Assets" --add-data "MagicForest/04_LevelLoading;MagicForest/04_LevelLoading" --add-data "MagicForest/Levels;MagicForest/Levels" MagicForest/04_LevelLoading/_04_LevelLoading.py
 
       - name: Build with PyInstaller (macOS/Linux)
         if: matrix.os != 'windows-latest'
         run: |
           pyinstaller --noconfirm --onedir --windowed \
             --name "MagicForest" \
+            --hidden-import pytmx --hidden-import PIL --hidden-import PIL.Image \
             --add-data "Assets:Assets" \
             --add-data "MagicForest/04_LevelLoading:MagicForest/04_LevelLoading" \
             --add-data "MagicForest/Levels:MagicForest/Levels" \
