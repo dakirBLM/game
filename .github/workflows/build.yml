@@ -1,0 +1,53 @@
+name: Build MagicForest
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:          # allows manual trigger from GitHub UI
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            artifact: MagicForest-windows
+            sep: ";"
+          - os: macos-latest
+            artifact: MagicForest-mac
+            sep: ":"
+          - os: ubuntu-latest
+            artifact: MagicForest-linux
+            sep: ":"
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pygame pillow pytmx pyinstaller
+
+      - name: Build with PyInstaller
+        run: |
+          pyinstaller --noconfirm --onedir --windowed \
+            --name "MagicForest" \
+            --add-data "Assets${{ matrix.sep }}Assets" \
+            --add-data "MagicForest/04_LevelLoading${{ matrix.sep }}MagicForest/04_LevelLoading" \
+            --add-data "MagicForest/Levels${{ matrix.sep }}MagicForest/Levels" \
+            MagicForest/04_LevelLoading/_04_LevelLoading.py
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: dist/
+          retention-days: 30

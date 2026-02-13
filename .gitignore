@@ -1,0 +1,24 @@
+.vs
+__pycache__
+
+*.bak
+*.ase
+*.aseprite
+*.gif
+
+# Build artifacts
+build/
+dist/
+*.spec
+*.zip
+
+# Virtual environments
+.venv/
+__pycache__/
+*.pyc
+
+# Debug files
+debug_*.txt
+
+# Large audio files
+Assets/Sound/Music/Alexander Ehlers/Alexander Ehlers - Warped.mp3
