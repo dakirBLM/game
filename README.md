@@ -3,7 +3,7 @@
 
 ![Gameplay demo](docs/demo.gif)
 
-Magic Forest is a cozy pixel-platformer starring Céline as she explores an enchanted forest full of curious creatures and little secrets. Smooth camera scrolling, tintable sprites, particle effects, and a playful Valentine start screen make it delightful to play. Cross-platform builds available.
+Magic Forest is a cozy pixel-platformer starring X as she explores an enchanted forest full of curious creatures and little secrets. Smooth camera scrolling, tintable sprites, particle effects, and a playful Valentine start screen make it delightful to play. Cross-platform builds available.
 
 ## Quick Description (300 chars)
 Magic Forest is a cozy pixel-platformer starring Céline exploring an enchanted forest. Enjoy smooth camera scrolling, tintable sprites, particle effects, and a Valentine-themed start screen. Fast native builds for Windows/macOS/Linux; download on itch.io to play instantly.
